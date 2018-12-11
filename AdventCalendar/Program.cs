@@ -27,9 +27,21 @@ namespace AdventCalendar
             Console.WriteLine("question 1: " + solver.GetCheckSum());
             Console.WriteLine("quesiton 2: " + solver.GetCommonString());
         }
+
+        private static void SolvePuzzleDay3()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day3\mock.txt";
+            var inputPath = @"{basePath}\..\..\..\day3\input.txt";
+            //var solver = new AdventCalendar.day3.PuzzleSolver(mockInputPath);
+            var solver = new AdventCalendar.day3.PuzzleSolver(inputPath);
+            Console.WriteLine("question 1: " + solver.CountDuplicateSquareClaims());
+            //Console.WriteLine("quesiton 2: " + solver.GetCommonString());
+        }
+
         static void Main(string[] args)
         {
-            SolvePuzzleDay2();
+            SolvePuzzleDay3();
         }
     }
 }
