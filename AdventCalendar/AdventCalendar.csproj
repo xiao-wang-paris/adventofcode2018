@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="day1\Day1.cs" />
     <Compile Include="day2\PuzzleSolver.cs" />
+    <Compile Include="day3\Interval.cs" />
     <Compile Include="day3\PuzzleSolver.cs" />
+    <Compile Include="day3\Square.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
