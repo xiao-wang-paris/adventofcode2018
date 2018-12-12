@@ -32,11 +32,11 @@ namespace AdventCalendar
         {
             var basePath = System.IO.Directory.GetCurrentDirectory();
             //var mockInputPath = @"{basePath}\..\..\..\day3\mock.txt";
-            var inputPath = @"{basePath}\..\..\..\day3\input.txt";
             //var solver = new AdventCalendar.day3.PuzzleSolver(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day3\input.txt";
             var solver = new AdventCalendar.day3.PuzzleSolver(inputPath);
             Console.WriteLine("question 1: " + solver.CountDuplicateSquareClaims());
-            //Console.WriteLine("quesiton 2: " + solver.GetCommonString());
+            Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
         }
 
         static void Main(string[] args)
