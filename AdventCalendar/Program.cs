@@ -10,7 +10,7 @@ namespace AdventCalendar
         {
             var basePath = System.IO.Directory.GetCurrentDirectory();
             var inputPath = @"{basePath}\..\..\..\day1\input.txt";
-            var computer = new Day1(inputPath);
+            var computer = new day1.Solution(inputPath);
             Console.WriteLine("question 1: " + computer.ComputeFrequence());
             Console.WriteLine("question 2: " + computer.ComputeFirstDuplicate());
         }
@@ -23,7 +23,7 @@ namespace AdventCalendar
             //var mock2InputPath = @"{basePath}\..\..\..\day2\mock2.txt";
             //var solver = new Solution(mock2InputPath);
             //var solver = new Solution(mockInputPath);
-            var solver = new Solution(inputPath);
+            var solver = new day2.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.GetCheckSum());
             Console.WriteLine("quesiton 2: " + solver.GetCommonString());
         }

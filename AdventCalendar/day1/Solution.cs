@@ -2,10 +2,10 @@
 
 namespace AdventCalendar.day1
 {
-    public class Day1
+    public class Solution
     {
         private readonly string input;
-        public Day1(string input)
+        public Solution(string input)
         {
             this.input = input;
         }
