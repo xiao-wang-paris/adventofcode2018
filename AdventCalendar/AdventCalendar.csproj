@@ -48,6 +48,7 @@
     <Compile Include="day3\PuzzleSolver.cs" />
     <Compile Include="day3\Square.cs" />
     <Compile Include="day4\PuzzleSolver.cs" />
+    <Compile Include="day5\PuzzleSolver.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -64,6 +65,8 @@
     <Content Include="day3\mock.txt" />
     <Content Include="day4\input.txt" />
     <Content Include="day4\mock.txt" />
+    <Content Include="day5\input.txt" />
+    <Content Include="day5\mock.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

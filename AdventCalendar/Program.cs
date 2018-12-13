@@ -50,9 +50,21 @@ namespace AdventCalendar
             //Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
         }
 
+        private static void SolvePuzzleDay5()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day5\mock.txt";
+            //var solver = new AdventCalendar.day5.PuzzleSolver(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day5\input.txt";
+            var solver = new AdventCalendar.day5.PuzzleSolver(inputPath);
+            Console.WriteLine("question 1: " + solver.React());
+            Console.WriteLine("question 1: " + solver.ReactUpdated());
+            //Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
+        }
+
         static void Main(string[] args)
         {
-            SolvePuzzleDay4();
+            SolvePuzzleDay5();
         }
     }
 }
