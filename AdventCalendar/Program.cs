@@ -72,12 +72,21 @@ namespace AdventCalendar
             Console.WriteLine("question 1: " + solver.ComputeArea());
             //Console.WriteLine("question 2: " + solver.GetRegionSize(32));
             Console.WriteLine("question 2: " + solver.GetRegionSize(10000));
-            //Console.WriteLine("question 1: " + solver.ReactUpdated());
-
         }
+
+        private static void SolvePuzzleDay7()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day7\mock.txt";
+            //var solver = new AdventCalendar.day7.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day7\input.txt";
+            var solver = new day7.Solution(inputPath);
+            Console.WriteLine("question 1: " + solver.GetPath());
+        }
+
         static void Main(string[] args)
         {
-            SolvePuzzleDay6();
+            SolvePuzzleDay7();
         }
     }
 }
