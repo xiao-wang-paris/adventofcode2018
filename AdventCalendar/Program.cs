@@ -21,9 +21,9 @@ namespace AdventCalendar
             var inputPath = @"{basePath}\..\..\..\day2\input.txt";
             //var mockInputPath = @"{basePath}\..\..\..\day2\mock.txt";
             //var mock2InputPath = @"{basePath}\..\..\..\day2\mock2.txt";
-            //var solver = new PuzzleSolver(mock2InputPath);
-            //var solver = new PuzzleSolver(mockInputPath);
-            var solver = new PuzzleSolver(inputPath);
+            //var solver = new Solution(mock2InputPath);
+            //var solver = new Solution(mockInputPath);
+            var solver = new Solution(inputPath);
             Console.WriteLine("question 1: " + solver.GetCheckSum());
             Console.WriteLine("quesiton 2: " + solver.GetCommonString());
         }
@@ -32,9 +32,9 @@ namespace AdventCalendar
         {
             var basePath = System.IO.Directory.GetCurrentDirectory();
             //var mockInputPath = @"{basePath}\..\..\..\day3\mock.txt";
-            //var solver = new AdventCalendar.day3.PuzzleSolver(mockInputPath);
+            //var solver = new AdventCalendar.day3.Solution(mockInputPath);
             var inputPath = @"{basePath}\..\..\..\day3\input.txt";
-            var solver = new AdventCalendar.day3.PuzzleSolver(inputPath);
+            var solver = new AdventCalendar.day3.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.CountDuplicateSquareClaims());
             Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
         }
@@ -43,9 +43,9 @@ namespace AdventCalendar
         {
             var basePath = System.IO.Directory.GetCurrentDirectory();
             //var mockInputPath = @"{basePath}\..\..\..\day4\mock.txt";
-            //var solver = new AdventCalendar.day4.PuzzleSolver(mockInputPath);
+            //var solver = new AdventCalendar.day4.Solution(mockInputPath);
             var inputPath = @"{basePath}\..\..\..\day4\input.txt";
-            var solver = new AdventCalendar.day4.PuzzleSolver(inputPath);
+            var solver = new AdventCalendar.day4.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.ComputeProductOfIdAndMinute());
             //Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
         }
@@ -54,17 +54,30 @@ namespace AdventCalendar
         {
             var basePath = System.IO.Directory.GetCurrentDirectory();
             //var mockInputPath = @"{basePath}\..\..\..\day5\mock.txt";
-            //var solver = new AdventCalendar.day5.PuzzleSolver(mockInputPath);
+            //var solver = new AdventCalendar.day5.Solution(mockInputPath);
             var inputPath = @"{basePath}\..\..\..\day5\input.txt";
-            var solver = new AdventCalendar.day5.PuzzleSolver(inputPath);
+            var solver = new AdventCalendar.day5.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.React());
-            Console.WriteLine("question 1: " + solver.ReactUpdated());
+            Console.WriteLine("question 2: " + solver.ReactUpdated());
             //Console.WriteLine("quesiton 2: " + solver.FindNotOverlappedId());
         }
 
+        private static void SolvePuzzleDay6()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day6\mock.txt";
+            //var solver = new AdventCalendar.day6.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day6\input.txt";
+            var solver = new day6.Solution(inputPath);
+            Console.WriteLine("question 1: " + solver.ComputeArea());
+            //Console.WriteLine("question 2: " + solver.GetRegionSize(32));
+            Console.WriteLine("question 2: " + solver.GetRegionSize(10000));
+            //Console.WriteLine("question 1: " + solver.ReactUpdated());
+
+        }
         static void Main(string[] args)
         {
-            SolvePuzzleDay5();
+            SolvePuzzleDay6();
         }
     }
 }

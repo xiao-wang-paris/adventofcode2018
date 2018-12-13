@@ -9,10 +9,10 @@ namespace AdventCalendar.day2
         public int TripleCount { get; set; }
     }
 
-    public class PuzzleSolver
+    public class Solution
     {
         private readonly string inputPath;
-        public PuzzleSolver(string path)
+        public Solution(string path)
         {
             inputPath = path;
         }

@@ -2,12 +2,12 @@
 
 namespace AdventCalendar.day3
 {
-    public class PuzzleSolver
+    public class Solution
     {
         private readonly string inputPath;
         private readonly List<Square> squareList;
 
-        public PuzzleSolver(string path)
+        public Solution(string path)
         {
             inputPath = path;
 

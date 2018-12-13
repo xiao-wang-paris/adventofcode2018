@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace AdventCalendar.day5
 {
-    public class PuzzleSolver
+    public class Solution
     {
         private readonly string inputPath;
-        public PuzzleSolver(string path)
+        public Solution(string path)
         {
             inputPath = path;
         }
