@@ -39,7 +39,7 @@ namespace AdventCalendar.day6
         {
             string[] lines = System.IO.File.ReadAllLines(inputPath);
             List<Point> points = new List<Point>();
-            char symbol = 'A';
+            char symbol = 'a';
             foreach (string line in lines)
             {
                 points.Add(Point.FromString(line, symbol++));
@@ -59,12 +59,10 @@ namespace AdventCalendar.day6
             }
 
             var counter = new Dictionary<char, int>();
-            //number cases 
             for (int i = 0; i <= rightborder + 1; i++)
             {
                 for (int j = 0; j <= downborder + 1; j++)
                 {
-                    //find nearest point
                     char nearest = FindNearest(i, j, points);
                     matrix[i][j] = nearest;
 
@@ -80,35 +78,25 @@ namespace AdventCalendar.day6
                     }
                 }
             }
-            //remove borders
+            //remove borders and equalities
+            var infinitePoints = new HashSet<char>() { '.' };
             for (int i = 0; i <= rightborder + 1; i++)
             {
-                char nearest = matrix[i][0];
-                if (counter.ContainsKey(nearest))
-                {
-                    counter.Remove(nearest);
-                }
-                nearest = matrix[i][downborder + 1];
-                if (counter.ContainsKey(nearest))
-                {
-                    counter.Remove(nearest);
-                }
+                infinitePoints.Add(matrix[i][0]);
+                infinitePoints.Add(matrix[i][downborder + 1]);
             }
 
             for (int i = 0; i <= downborder + 1; i++)
             {
-                char nearest = matrix[0][i];
-                if (counter.ContainsKey(nearest))
-                {
-                    counter.Remove(nearest);
-                }
-                nearest = matrix[rightborder + 1][i];
-                if (counter.ContainsKey(nearest))
-                {
-                    counter.Remove(nearest);
-                }
+                infinitePoints.Add(matrix[0][i]);
+                infinitePoints.Add(matrix[rightborder + 1][i]);
             }
-            counter.Remove('.');
+
+            foreach(char c in infinitePoints)
+            {
+                counter.Remove(c);
+            }
+
             return counter.Values.Max();
         }
 
@@ -116,7 +104,7 @@ namespace AdventCalendar.day6
         {
             string[] lines = System.IO.File.ReadAllLines(inputPath);
             List<Point> points = new List<Point>();
-            char symbol = 'A';
+            char symbol = 'a';
             foreach (string line in lines)
             {
                 points.Add(Point.FromString(line, symbol++));
@@ -136,12 +124,10 @@ namespace AdventCalendar.day6
             }
 
             var counter = 0;
-            //number cases 
             for (int i = 0; i <= rightborder + 1; i++)
             {
                 for (int j = 0; j <= downborder + 1; j++)
                 {
-                    //find nearest point
                     int distance = ComputeTotalDistance(i, j, points);
                     if (distance < limit)
                     {
