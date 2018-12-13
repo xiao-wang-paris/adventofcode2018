@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AdventCalendar.day4
 {
@@ -60,137 +61,102 @@ namespace AdventCalendar.day4
         public PuzzleSolver(string path)
         {
             inputPath = path;
-            this.Init();
-        }
-
-        private List<Record> list;
-        private void Init()
-        {
-            this.list = new List<Record>();
-            string[] lines = System.IO.File.ReadAllLines(inputPath);
-            //parse 
-            foreach (var line in lines)
-            {
-                var record = Record.FromString(line);
-                list.Add(record);
-            }
-            //list.Sort();
         }
 
         public int ComputeProductOfIdAndMinute()
         {
             Dictionary<DateTime, int> dateToGuardMap = new Dictionary<DateTime, int>();
             Dictionary<DateTime, List<Record>> map = new Dictionary<DateTime, List<Record>>();
-            Dictionary<int, List<int[]>> guardTime = new Dictionary<int, List<int[]>>();
             Dictionary<int, int[]> guardTimeAggr = new Dictionary<int, int[]>();
-            foreach (Record r in list)
-            {
-                if (r.CurrentState == State.shift)
-                {
-                    var date = r.TimeStamp.Date;
-                    if (r.TimeStamp.Hour > 0)
-                    {
-                        date = date.AddDays(1);
-                    }
-                    dateToGuardMap.Add(date, r.Guard);
-                }
-            }
 
-            foreach (Record r in list)
+            string[] lines = System.IO.File.ReadAllLines(inputPath);
+            //parse 
+            foreach (var line in lines)
             {
-                if (r.CurrentState == State.shift)
+                var record = Record.FromString(line);
+                switch (record.CurrentState)
                 {
-                    continue;
+                    case State.shift:
+                        var date = record.TimeStamp.Date;
+                        if (record.TimeStamp.Hour > 0)
+                        {
+                            date = date.AddDays(1);
+                        }
+                        dateToGuardMap.Add(date, record.Guard);
+                        break;
+                    case State.asleep:
+                    case State.awake:
+                        if (!map.ContainsKey(record.TimeStamp.Date))
+                        {
+                            map.Add(record.TimeStamp.Date, new List<Record>());
+                        }
+                        map[record.TimeStamp.Date].Add(record);
+                        break;
+                    default:
+                        break;
                 }
-                if (!map.ContainsKey(r.TimeStamp.Date))
-                {
-                    map.Add(r.TimeStamp.Date, new List<Record>());
-                }
-                map[r.TimeStamp.Date].Add(r);
             }
 
             foreach (List<Record> list in map.Values)
             {
                 list.Sort();
-                int[] asleep = new int[61];
+
+                int[] asleep = new int[60];
                 for (int i = 0; i < list.Count - 1; i++)
                 {
-                    if (list[i].CurrentState == State.awake)
+                    if (list[i].CurrentState == State.asleep)
                     {
-                        continue;
-                    }
-                    //asleep 
-                    var next = list[i + 1].TimeStamp.Minute;
-                    for (int j = list[i].TimeStamp.Minute; j < next; j++)
-                    {
-                        asleep[j] = 1;
+                        var next = list[i + 1].TimeStamp.Minute;
+                        for (int j = list[i].TimeStamp.Minute; j < next; j++)
+                        {
+                            asleep[j] = 1;
+                        }
                     }
                 }
                 int guardNum = dateToGuardMap[list[0].TimeStamp.Date];
-                if (!guardTime.ContainsKey(guardNum))
+                if (!guardTimeAggr.ContainsKey(guardNum))
                 {
-                    guardTime.Add(guardNum, new List<int[]>());
+                    guardTimeAggr.Add(guardNum, new int[60]);
                 }
-                guardTime[guardNum].Add(asleep);
+                var prevAggreg = guardTimeAggr[guardNum];
+                for (int i = 0; i < 60; i++)
+                {
+                    prevAggreg[i] += asleep[i];
+                }
             }
 
-            //sum 
             int maxGuard = -1;
             int maxAsleepTime = -1;
-            foreach (int guard in guardTime.Keys)
+            foreach (int guard in guardTimeAggr.Keys)
             {
-                int[] aggreg = new int[61];
-                int sum = 0;
-                foreach (int[] list in guardTime[guard])
-                {
-                    for (int i = 0; i <= 60; i++)
-                    {
-                        aggreg[i] += list[i];
-                        sum += list[i];
-                    }
-                }
-                guardTimeAggr.Add(guard, aggreg);
+                int sum = guardTimeAggr[guard].Sum(); 
                 if (sum > maxAsleepTime)
                 {
                     maxAsleepTime = sum;
                     maxGuard = guard;
                 }
-
-
             }
 
-            int maxIndex = -1;
-            int temp = -1;
             int[] aggregList = guardTimeAggr[maxGuard];
-            for (int i = 0; i < 60; i++)
-            {
-                if (aggregList[i] > temp)
-                {
-                    temp = aggregList[i];
-                    maxIndex = i;
-                }
-            }
+            int maxIndex = Array.IndexOf(aggregList,aggregList.Max());
             Console.WriteLine(maxIndex * maxGuard);
 
             maxIndex = -1;
             maxGuard = -1;
             maxAsleepTime = -1;
-            foreach(int guard in guardTimeAggr.Keys)
+            foreach (int guard in guardTimeAggr.Keys)
             {
                 int[] l = guardTimeAggr[guard];
-                for(int i=0; i<60; i++)
+                var maxOfGuard = l.Max();
+                if(maxOfGuard > maxAsleepTime)
                 {
-                    if(l[i] > maxAsleepTime)
-                    {
-                        maxAsleepTime = l[i];
-                        maxGuard = guard;
-                        maxIndex = i;
-                    }
+                    maxAsleepTime = maxOfGuard;
+                    maxGuard = guard;
+                    maxIndex = Array.IndexOf(l, maxOfGuard);
                 }
             }
             Console.WriteLine(maxGuard * maxIndex);
             return 0;
         }
-
     }
 }
