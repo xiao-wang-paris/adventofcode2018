@@ -1,24 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AdventCalendar.day7
 {
-    public class Point
-    {
-        public  Point(char name)
-        {
-            this.Name = name;
-            Children = new List<Point>();
-            Ancestor = new List<Point>();
-        }
-        public List<Point> Children { get; set; }
-        public List<Point> Ancestor { get; set; }
-        public char Name { get; set; }
-    }
-
     //topologicaltree
     class Solution
     {
@@ -27,10 +11,15 @@ namespace AdventCalendar.day7
         {
             inputPath = path;
         }
-        public string GetPath()
+
+        private HashSet<Point> points;
+        private Dictionary<char, Point> dict;
+
+        private void Init()
         {
-            HashSet<Point> points = new HashSet<Point>();
-            var dict = new Dictionary<char, Point>();
+            points = new HashSet<Point>();
+            dict = new Dictionary<char, Point>();
+
             string[] lines = System.IO.File.ReadAllLines(inputPath);
             foreach (string line in lines)
             {
@@ -48,17 +37,22 @@ namespace AdventCalendar.day7
                 dict[c1].Children.Add(dict[c2]);
                 dict[c2].Ancestor.Add(dict[c1]);
             }
-            List<char> res = new List<char>();
-            List<char> queue = new List<char>();
-            foreach(char c in dict.Keys)
+        }
+
+        public string GetPath()
+        {
+            Init();
+
+            List<char> queue = new List<char>() { };
+            foreach (char c in dict.Keys)
             {
-                if(dict[c].Ancestor.Count == 0)
+                if (dict[c].Ancestor.Count == 0)
                 {
                     queue.Add(c);
                 }
             }
-
-            while(queue.Count > 0)
+            List<char> res = new List<char>();
+            while (queue.Count > 0)
             {
                 queue.Sort();
                 var next = queue[0];
@@ -67,13 +61,57 @@ namespace AdventCalendar.day7
                 foreach (Point child in dict[next].Children)
                 {
                     child.Ancestor.Remove(dict[next]);
-                    if(child.Ancestor.Count == 0)
+                    if (child.Ancestor.Count == 0)
                     {
                         queue.Add(child.Name);
                     }
                 }
             }
             return new string(res.ToArray());
+        }
+
+        private int GetDuration(char c)
+        {
+            return (c - 'A' + 1 + 60 );
+        }
+
+        public int ComputeCompletionTime(int numWorkers)
+        {
+            Init();
+            var workerRemainingTime = new Dictionary<char, int>();
+
+            int res = 0;
+            foreach (char c in dict.Keys)
+            {
+                if (dict[c].Ancestor.Count == 0)
+                {
+                    workerRemainingTime.Add(c, GetDuration(c));
+                }
+            }
+
+            while (workerRemainingTime.Count > 0)
+            {
+                res++;
+                var currentKeys = new List<char>(workerRemainingTime.Keys);
+                for(int i=0; i<Math.Min(currentKeys.Count, numWorkers); i++)
+                {
+                    char worker = currentKeys[i];
+                    workerRemainingTime[worker]--;
+                    if (workerRemainingTime[worker] == 0)
+                    {
+                        foreach (Point child in dict[worker].Children)
+                        {
+                            child.Ancestor.Remove(dict[worker]);
+                            if (child.Ancestor.Count == 0)
+                            {
+                                workerRemainingTime.Add(child.Name, GetDuration(child.Name));
+                            }
+                        }
+                        workerRemainingTime.Remove(worker);
+                    }
+                }
+            }
+            return res;
         }
     }
 }

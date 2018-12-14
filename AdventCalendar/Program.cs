@@ -82,6 +82,7 @@ namespace AdventCalendar
             var inputPath = @"{basePath}\..\..\..\day7\input.txt";
             var solver = new day7.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.GetPath());
+            Console.WriteLine("question 1: " + solver.ComputeCompletionTime(5));
         }
 
         static void Main(string[] args)
