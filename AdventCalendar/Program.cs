@@ -85,9 +85,18 @@ namespace AdventCalendar
             Console.WriteLine("question 1: " + solver.ComputeCompletionTime(5));
         }
 
+        private static void SolutionDay8()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day8\mock.txt";
+            //var solver = new day8.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day8\input.txt";
+            var solver = new day8.Solution(inputPath);
+            Console.WriteLine("question 1: " + solver.GetMetaSum());
+        }
         static void Main(string[] args)
         {
-            SolvePuzzleDay7();
+            SolutionDay8();
         }
     }
 }
