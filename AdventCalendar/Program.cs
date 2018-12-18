@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using AdventCalendar.day1;
 using AdventCalendar.day2;
 
@@ -17,7 +18,7 @@ namespace AdventCalendar
 
         static void SolvePuzzleDay2()
         {
-            var basePath = System.IO.Directory.GetCurrentDirectory(); 
+            var basePath = System.IO.Directory.GetCurrentDirectory();
             var inputPath = @"{basePath}\..\..\..\day2\input.txt";
             //var mockInputPath = @"{basePath}\..\..\..\day2\mock.txt";
             //var mock2InputPath = @"{basePath}\..\..\..\day2\mock2.txt";
@@ -105,9 +106,33 @@ namespace AdventCalendar
             Console.WriteLine("question 1: " + solver.GetWinningScore());
         }
 
+        private static void SolutionDay10()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day910\mock.txt";
+            //var solver = new day10.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day910\input.txt";
+            var solver = new day10.Solution(inputPath);
+            solver.ParsePattern();
+        }
+
         static void Main(string[] args)
         {
-            SolutionDay9();
+            Trace.Listeners.Clear();
+            var twt1 = new TextWriterTraceListener("C:")
+            {
+                Name = "textLogger.txt",
+                TraceOutputOptions = TraceOptions.DateTime
+            };
+            var ct1 = new ConsoleTraceListener(false)
+            {
+                TraceOutputOptions = TraceOptions.DateTime
+            };
+            Trace.Listeners.Add(twt1);
+            Trace.Listeners.Add(ct1);
+            Trace.AutoFlush = true;
+
+            SolutionDay10();
         }
     }
 }
