@@ -94,9 +94,20 @@ namespace AdventCalendar
             var solver = new day8.Solution(inputPath);
             Console.WriteLine("question 1: " + solver.GetMetaSum());
         }
+
+        private static void SolutionDay9()
+        {
+            var basePath = System.IO.Directory.GetCurrentDirectory();
+            //var mockInputPath = @"{basePath}\..\..\..\day9\mock.txt";
+            //var solver = new day9.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day9\input.txt";
+            var solver = new day9.Solution(inputPath);
+            Console.WriteLine("question 1: " + solver.GetWinningScore());
+        }
+
         static void Main(string[] args)
         {
-            SolutionDay8();
+            SolutionDay9();
         }
     }
 }
