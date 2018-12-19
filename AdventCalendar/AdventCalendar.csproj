@@ -54,7 +54,12 @@
     <Compile Include="day7\Point.cs" />
     <Compile Include="day7\Solution.cs" />
     <Compile Include="day8\Solution.cs" />
+    <Compile Include="day910\Matrix.cs" />
+    <Compile Include="day910\Point.cs" />
+    <Compile Include="day910\Position.cs" />
     <Compile Include="day910\Solution.cs" />
+    <Compile Include="day910\Velocity.cs" />
+    <Compile Include="day911\Solution.cs" />
     <Compile Include="day9\Solution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

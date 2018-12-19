@@ -116,23 +116,16 @@ namespace AdventCalendar
             solver.ParsePattern();
         }
 
+        private static void SolutionDay11()
+        {
+            var solution = new day11.Solution();
+
+            Console.WriteLine(solution.GetMaxFuelCellCoordinate());
+        }
+
         static void Main(string[] args)
         {
-            Trace.Listeners.Clear();
-            var twt1 = new TextWriterTraceListener("C:")
-            {
-                Name = "textLogger.txt",
-                TraceOutputOptions = TraceOptions.DateTime
-            };
-            var ct1 = new ConsoleTraceListener(false)
-            {
-                TraceOutputOptions = TraceOptions.DateTime
-            };
-            Trace.Listeners.Add(twt1);
-            Trace.Listeners.Add(ct1);
-            Trace.AutoFlush = true;
-
-            SolutionDay10();
+            SolutionDay11();
         }
     }
 }
