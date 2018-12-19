@@ -60,6 +60,7 @@
     <Compile Include="day910\Solution.cs" />
     <Compile Include="day910\Velocity.cs" />
     <Compile Include="day911\Solution.cs" />
+    <Compile Include="day912\Solution.cs" />
     <Compile Include="day9\Solution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,6 +88,8 @@
     <Content Include="day8\mock.txt" />
     <Content Include="day910\input.txt" />
     <Content Include="day910\mock.txt" />
+    <Content Include="day912\input.txt" />
+    <Content Include="day912\mock.txt" />
     <Content Include="day9\input.txt" />
     <Content Include="day9\mock.txt" />
   </ItemGroup>

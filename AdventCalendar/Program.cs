@@ -123,9 +123,18 @@ namespace AdventCalendar
             Console.WriteLine(solution.GetMaxFuelCellCoordinate());
         }
 
+        private static void SolutionDay12()
+        {
+            //var mockInputPath = @"{basePath}\..\..\..\day912\mock.txt";
+            //var solution = new day12.Solution(mockInputPath);
+            var inputPath = @"{basePath}\..\..\..\day912\input.txt";
+            var solution = new day12.Solution(inputPath);
+            solution.GeneratePlant();
+        }
+
         static void Main(string[] args)
         {
-            SolutionDay11();
+            SolutionDay12();
         }
     }
 }
