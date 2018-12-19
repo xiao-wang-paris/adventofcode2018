@@ -6,39 +6,22 @@ namespace AdventCalendar.day12
 {
     public class State
     {
-        public State(string negStr, string posStr)
+        public State(string state, int shift)
         {
-            //NegState = negStr.TrimStart('.');
-            //PosState = posStr.TrimEnd('.');
-
-            //string trimmedPosState = PosState.TrimStart('.');
-            //PositiveShift = PosState.Length - trimmedPosState.Length;
-
-            //PosState = trimmedPosState;
-
-            NegState = negStr;
-            PosState = posStr;
+            Shift = shift;
+            PosState = state;
         }
 
-        public string NegState { get; set; }
         public string PosState { get; set; }
-        public int PositiveShift { get; set; }
-        public int NegShift { get; set; }
+        public int Shift { get; set; }
         public int CountPlant()
         {
             var res = 0;
-            for (int i = 0; i < NegState.Length; i++)
-            {
-                if (NegState.ToCharArray()[i] == '#')
-                {
-                    res += i - NegState.Length;
-                }
-            }
             for (int i = 0; i < PosState.Length; i++)
             {
                 if (PosState.ToCharArray()[i] == '#')
                 {
-                    res += i + PositiveShift;
+                    res += i + Shift;
                 }
             }
             return res;
@@ -46,14 +29,13 @@ namespace AdventCalendar.day12
         public static State FromString(string s)
         {
             string[] str = s.Split(new string[] { "initial state: " }, StringSplitOptions.None);
-            return new State("", str[1]);
+            return new State(str[1], 0);
         }
         public static State NextGeneration(State s, List<Rule> rules)
         {
-            //if(s.PositiveShift == 0)
-            string str = s.NegState + s.PosState;
-            string init = "...." + str + "....";
             string res = "";
+            string init = "...." + s.PosState + "....";
+
             for (int i = 2; i < init.Length - 2; i++)
             {
                 char c = '.';
@@ -67,12 +49,14 @@ namespace AdventCalendar.day12
                 }
                 res += c;
             }
-            return new State(res.Substring(0, 2 + s.NegState.Length), res.Substring(2 + s.NegState.Length));
+            int countLeadingSymbol = res.Length - res.TrimStart('.').Length;
+            res = res.Trim('.');
+            return new State(res, s.Shift - 2 + countLeadingSymbol);
         }
 
         public void Print()
         {
-            Console.WriteLine(NegState + "%" + PosState.TrimStart('.'));
+            Console.WriteLine(PosState);
         }
     }
     public class Rule
@@ -109,18 +93,17 @@ namespace AdventCalendar.day12
             }
 
             var generation = 50_000_000_000;
-            for (int g = 1; g <= 20; g++)
+            var prev = 0;
+            for (int g = 1; g <= 200; g++)
             {
                 state = State.NextGeneration(state, list);
+                //var count = state.CountPlant();
+                //Console.WriteLine($"{g}: {count}, increase:{count - prev}");
+                //prev = count;
                 //state.Print();
             }
-            state.Print();
-            //for (int g = 1; g < 10; g++)
-            //{
-            //    state = State.NextGeneration(state, list);
-            //    state.Print();
-            //}
-            Console.WriteLine(state.CountPlant());
+
+            Console.WriteLine(17904 + (88 * (generation - 200)));
         }
     }
 }
